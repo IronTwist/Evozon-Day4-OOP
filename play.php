@@ -15,7 +15,6 @@ $evilArmy = new EvilArmy();
 $loadFromFile = new LoadFromFile();
 
 $prepareTheArmies = new PrepareTheArmies($goodArmy, $evilArmy, $loadFromFile);
-
 $prepareTheArmies->createArmiesFromFile('moria.txt');
 
 $battleManager = new BattleManager($prepareTheArmies);
@@ -25,6 +24,7 @@ echo $battleManager->getWonArmyDisplay().$battleManager->getLosingArmyDisplay().
 echo '</br> Lost in battle: ';
 
 $lostInBattleWarriors = $battleManager->getWarriorsLostInBattle();
+
 foreach ($lostInBattleWarriors as $lost){
     echo $lost->getName(). ', ';
 }
