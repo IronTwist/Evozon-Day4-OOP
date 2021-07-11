@@ -1,0 +1,7 @@
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:6:"Hobbit";s:4:"side";s:4:"good";s:8:"strength";d:0.4;s:12:"intelligence";d:0.8;s:8:"charisma";d:0.5;}
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:3:"Man";s:4:"side";s:4:"good";s:8:"strength";d:0.4;s:12:"intelligence";d:0.8;s:8:"charisma";d:0.5;}
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:3:"Elf";s:4:"side";s:4:"good";s:8:"strength";d:0.8;s:12:"intelligence";d:0.8;s:8:"charisma";d:0.5;}
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:6:"Goblin";s:4:"side";s:4:"evil";s:8:"strength";d:0.9;s:12:"intelligence";d:0.2;s:8:"charisma";d:0.1;}
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:3:"Orc";s:4:"side";s:4:"evil";s:8:"strength";d:0.9;s:12:"intelligence";d:0.3;s:8:"charisma";d:0.2;}
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:4:"Trol";s:4:"side";s:4:"evil";s:8:"strength";d:0.8;s:12:"intelligence";d:0.6;s:8:"charisma";d:0.1;}
+O:18:"ChildrenOfIluvatar":5:{s:4:"name";s:6:"Balrog";s:4:"side";s:4:"evil";s:8:"strength";d:0.8;s:12:"intelligence";d:0.6;s:8:"charisma";d:0.1;}
