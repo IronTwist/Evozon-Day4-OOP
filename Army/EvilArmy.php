@@ -71,9 +71,10 @@ class EvilArmy extends Army {
 
                             $this->army[] = $hero;
 
-                            throw new Exception("You are about to send a Balrog to the war!");
                         } else if ($action === 'No') {
                             continue;
+                        }else{
+                            throw new Exception("You did not choose any option!");
                         }
 
                     }

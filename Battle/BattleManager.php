@@ -40,7 +40,15 @@ class BattleManager
 
            if(!empty($evilWarriorGoToFight || !empty($goodWarriorGoToFight))){
                $winner =  $this->fight($evilWarriorGoToFight, $goodWarriorGoToFight);
-               var_dump($winner);
+//               var_dump($winner);
+
+               if($winner->getSide() === 'good'){
+                    printf("-%s defeated %s.\n", $winner->getName(),$evilWarriorGoToFight->getName());
+               }
+
+               if($winner->getSide() === 'evil'){
+                   printf("-%s defeated %s. \n", $winner->getName(),$goodWarriorGoToFight->getName());
+               }
 
                if(!empty($evilWarriors)){
                    try {

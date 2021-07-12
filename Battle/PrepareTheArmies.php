@@ -8,15 +8,15 @@ class PrepareTheArmies
     private array $evilWarriors;
     private GoodArmy $goodArmy;
     private EvilArmy $evilArmy;
-    private LoadFromFile $loadFromFile;
+    private FileLoadAndWrite $loadFromFile;
 
     /**
      * PrepareTheArmies constructor.
      * @param GoodArmy $goodArmy
      * @param EvilArmy $evilArmy
-     * @param LoadFromFile $loadFromFile
+     * @param FileLoadAndWrite $loadFromFile
      */
-    public function __construct(GoodArmy $goodArmy, EvilArmy $evilArmy, LoadFromFile $loadFromFile)
+    public function __construct(GoodArmy $goodArmy, EvilArmy $evilArmy, FileLoadAndWrite $loadFromFile)
     {
         $this->goodWarriors = array();
         $this->evilWarriors = array();
