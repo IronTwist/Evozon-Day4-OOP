@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/Army.php';
+require_once __DIR__ . '/../Entity/Goblin.php';
+require_once __DIR__ . '/../Entity/Orc.php';
+require_once __DIR__ . '/../Entity/Trol.php';
+require_once __DIR__ . '/../Entity/Balrog.php';
 
 class EvilArmy extends Army {
 
@@ -16,60 +20,57 @@ class EvilArmy extends Army {
                 if ($hero->getSide() === 'evil') {
                     if ($hero->getname() === 'Goblin') {
 
-                        $hero->setSupernaturalAbility(0.5);
+                        $warriorCreator = new Goblin();
+                        $warriorCreator->setName($hero->getName());
+                        $warriorCreator->setCharisma($hero->getCharisma());
+                        $warriorCreator->setIntelligence($hero->getIntelligence());
+                        $warriorCreator->setStrength($hero->getStrength());
+                        $warriorCreator->setSide($hero->getSide());
+                        $warriorCreator->calculateFightPower();
 
-                        $fightPower = (20 * $hero->getStrength()) +
-                            (10 * $hero->getIntelligence()) +
-                            (1 * $hero->getCharisma()) +
-                            (5 * $hero->getSupernaturalAbility());
-
-                        $hero->setFightPower($fightPower);
-
-                        $this->army[] = $hero;
+                        $this->army[] = $warriorCreator;
                     }
 
                     if ($hero->getname() === 'Orc') {
 
-                        $hero->setSupernaturalAbility(0.6);
+                        $warriorCreator = new Orc();
+                        $warriorCreator->setName($hero->getName());
+                        $warriorCreator->setCharisma($hero->getCharisma());
+                        $warriorCreator->setIntelligence($hero->getIntelligence());
+                        $warriorCreator->setStrength($hero->getStrength());
+                        $warriorCreator->setSide($hero->getSide());
+                        $warriorCreator->calculateFightPower();
 
-                        $fightPower = (30 * $hero->getStrength()) +
-                            (10 * $hero->getIntelligence()) +
-                            (1 * $hero->getCharisma()) +
-                            (5 * $hero->getSupernaturalAbility());
-
-                        $hero->setFightPower($fightPower);
-
-                        $this->army[] = $hero;
+                        $this->army[] = $warriorCreator;
                     }
 
                     if ($hero->getname() === 'Trol') {
 
-                        $hero->setSupernaturalAbility(0.6);
+                        $warriorCreator = new Trol();
+                        $warriorCreator->setName($hero->getName());
+                        $warriorCreator->setCharisma($hero->getCharisma());
+                        $warriorCreator->setIntelligence($hero->getIntelligence());
+                        $warriorCreator->setStrength($hero->getStrength());
+                        $warriorCreator->setSide($hero->getSide());
+                        $warriorCreator->calculateFightPower();
 
-                        $fightPower = (50 * $hero->getStrength()) +
-                            (1 * $hero->getIntelligence()) +
-                            (1 * $hero->getCharisma()) +
-                            (10 * $hero->getSupernaturalAbility());
-
-                        $hero->setFightPower($fightPower);
-
-                        $this->army[] = $hero;
+                        $this->army[] = $warriorCreator;
                     }
 
                     if ($hero->getname() === 'Balrog') {
                         $action = readline('Are you sure you want to send a Balrog to the battle? If no threow exception: [Yes/No]');
 
                         if ($action === 'Yes') {
-                            $hero->setSupernaturalAbility(0.9);
 
-                            $fightPower = (60 * $hero->getStrength()) +
-                                (5 * $hero->getIntelligence()) +
-                                (1 * $hero->getCharisma()) +
-                                (300 * $hero->getSupernaturalAbility());
+                            $warriorCreator = new Balrog();
+                            $warriorCreator->setName($hero->getName());
+                            $warriorCreator->setCharisma($hero->getCharisma());
+                            $warriorCreator->setIntelligence($hero->getIntelligence());
+                            $warriorCreator->setStrength($hero->getStrength());
+                            $warriorCreator->setSide($hero->getSide());
+                            $warriorCreator->calculateFightPower();
 
-                            $hero->setFightPower($fightPower);
-
-                            $this->army[] = $hero;
+                            $this->army[] = $warriorCreator;
 
                         } else if ($action === 'No') {
                             continue;

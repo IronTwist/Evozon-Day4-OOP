@@ -33,7 +33,6 @@ foreach ($lostInBattleWarriors as $lost){
 $allWarriors = array_merge($evilArmy->getArmy(), $goodArmy->getArmy());
 
 $writeToFile = new FileWrite();
-
 $writeToFile->writeDataBackToFile($allWarriors,'warriorsAfterBattle.txt');
 
 
