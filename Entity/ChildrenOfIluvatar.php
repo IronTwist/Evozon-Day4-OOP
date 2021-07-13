@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 class ChildrenOfIluvatar{
+
     private string $name;
     private ?string $side = null;
     private float $strength;

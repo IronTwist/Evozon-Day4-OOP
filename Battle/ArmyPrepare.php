@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-class PrepareTheArmies
+class ArmyPrepare
 {
     private array $goodWarriors;
     private array $evilWarriors;
     private GoodArmy $goodArmy;
     private EvilArmy $evilArmy;
-    private FileLoadAndWrite $loadFromFile;
+    private FileLoad $loadFromFile;
 
     /**
-     * PrepareTheArmies constructor.
+     * ArmyPrepare constructor.
      * @param GoodArmy $goodArmy
      * @param EvilArmy $evilArmy
-     * @param FileLoadAndWrite $loadFromFile
+     * @param FileLoad $loadFromFile
      */
-    public function __construct(GoodArmy $goodArmy, EvilArmy $evilArmy, FileLoadAndWrite $loadFromFile)
+    public function __construct(GoodArmy $goodArmy, EvilArmy $evilArmy, FileLoad $loadFromFile)
     {
         $this->goodWarriors = array();
         $this->evilWarriors = array();

@@ -7,16 +7,15 @@ require_once 'Entity/ChildrenOfIluvatar.php';
 
 class BattleManager
 {
-    private PrepareTheArmies $prepareTheArmies;
+    private ArmyPrepare $prepareTheArmies;
     private array $defeatedWarriors;
     private ?string $wonArmyDisplay = null;
-    private ?string $losingArmyDisplay = null;
 
     /**
      * BattleManager constructor.
-     * @param PrepareTheArmies $prepareTheArmies
+     * @param ArmyPrepare $prepareTheArmies
      */
-    public function __construct(PrepareTheArmies $prepareTheArmies)
+    public function __construct(ArmyPrepare $prepareTheArmies)
     {
         $this->prepareTheArmies = $prepareTheArmies;
         $this->defeatedWarriors = array();
@@ -28,7 +27,7 @@ class BattleManager
        $goodWarriors = $this->prepareTheArmies->getGoodWarriors();
 
        $x = 0;
-       while($x < 5){
+       while($x < 2){
            shuffle($evilWarriors);
            shuffle($goodWarriors);
            $x++;
@@ -39,59 +38,80 @@ class BattleManager
            $goodWarriorGoToFight = array_shift($goodWarriors);
 
            if(!empty($evilWarriorGoToFight || !empty($goodWarriorGoToFight))){
-               $winner =  $this->fight($evilWarriorGoToFight, $goodWarriorGoToFight);
-//               var_dump($winner);
 
-               if($winner->getSide() === 'good'){
-                    printf("-%s defeated %s.\n", $winner->getName(),$evilWarriorGoToFight->getName());
+               $winnerVsLooser =  $this->fight($evilWarriorGoToFight, $goodWarriorGoToFight);
+
+               // Display fights
+
+               if($winnerVsLooser[0]->getSide() === 'good'){
+                    printf("-%s defeated %s.\n", $winnerVsLooser[0]->getName(),$winnerVsLooser[1]->getName());
                }
 
-               if($winner->getSide() === 'evil'){
-                   printf("-%s defeated %s. \n", $winner->getName(),$goodWarriorGoToFight->getName());
+               if($winnerVsLooser[0]->getSide() === 'evil'){
+                   printf("-%s defeated %s. \n", $winnerVsLooser[0]->getName(),$winnerVsLooser[1]->getName());
                }
 
-               if(!empty($evilWarriors)){
-                   try {
-                       if($winner->getSide() === 'evil' && is_string($winner->getSide())){
-                           $evilWarriors[] = $winner;
-                       }
-                   }catch (Error $e){
-                       echo "I found an error: ". $e->getMessage();
-                   }
+               //Check to see if looser is dead or no
 
-               }else{
-                   $this->wonArmyDisplay = "Good side!";
+               if($winnerVsLooser[1]->isDead() === false && $winnerVsLooser[1]->getSide() === 'evil'){
+                   $evilWarriors[] = $winnerVsLooser[1];
                }
 
-               if(!empty($goodWarriors)){
-                   if($winner->getSide() === 'good'  && is_string($winner->getSide())){
-                       $goodWarriors[] = $winner;
-                   }
-               }else{
-                   $this->losingArmyDisplay = "Evil side!";
+               if($winnerVsLooser[1]->isDead() === false && $winnerVsLooser[1]->getSide() === 'good'){
+                   $goodWarriors[] = $winnerVsLooser[1];
                }
 
+
+
+           }
+
+           if(empty($evilWarriors) && !empty($goodWarriors)){
+               $this->wonArmyDisplay = "Good side!";
+           }
+
+           if(empty($goodWarriors) && !empty($evilWarriors)){
+               $this->wonArmyDisplay = "Evil side!";
            }
        }
     }
 
-    public function fight(ChildrenOfIluvatar $evilWarrior, ChildrenOfIluvatar $goodWarrior): ChildrenOfIluvatar
+    public function fight(ChildrenOfIluvatar $evilWarrior, ChildrenOfIluvatar $goodWarrior): ?array
     {
+        $winnerVsLooser = [];
+
         $checkEvilWarriorIfIsStronger = $evilWarrior->isStrongerThanOtherChildrenOfIlluvatar($goodWarrior);
         $checkGoodWarriorIfIsStronger = $goodWarrior->isStrongerThanOtherChildrenOfIlluvatar($evilWarrior);
 
-        if($checkEvilWarriorIfIsStronger === true){
+        if($checkEvilWarriorIfIsStronger === true) {
             $remainFightPower = $evilWarrior->getFightPower() - $goodWarrior->getFightPower();
 
-            if($remainFightPower < 0){
+            if ($remainFightPower < 0) {
                 $remainFightPower = 0;
             }
 
             $evilWarrior->setFightPower($remainFightPower);
-            $goodWarrior->setIsDead(true);
-            $this->defeatedWarriors($goodWarrior);
 
-            return $evilWarrior;
+            $winnerVsLooser[] = $evilWarrior;
+
+            try {
+                $randChanceToDie = random_int(1, 2);
+
+
+            if ($randChanceToDie === 2) {
+                $goodWarrior->setIsDead(true);
+                $this->defeatedWarriors($goodWarrior);
+                $winnerVsLooser[] = $goodWarrior;
+            }
+
+            if($randChanceToDie === 1) {
+                $winnerVsLooser[] = $goodWarrior;
+            }
+
+            } catch (Exception $e) {
+                echo "Exception trown: ".$e->getMessage();
+            }
+
+            return $winnerVsLooser;
         }
 
         if($checkGoodWarriorIfIsStronger === true){
@@ -102,13 +122,31 @@ class BattleManager
             }
 
             $goodWarrior->setFightPower($remainFightPower);
-            $evilWarrior->setIsDead(true);
-            $this->defeatedWarriors($evilWarrior);
 
-            return $goodWarrior;
+            $winnerVsLooser[] = $goodWarrior;
+
+            try {
+                $randChanceToDie = random_int(1, 2);
+
+
+            if ($randChanceToDie === 2) {
+                $evilWarrior->setIsDead(true);
+                $this->defeatedWarriors($evilWarrior);
+                $winnerVsLooser[] = $evilWarrior;
+            }
+
+            if($randChanceToDie === 1) {
+                $winnerVsLooser[] = $evilWarrior;
+            }
+
+            } catch (Exception $e) {
+                echo "Exception thrown: ".$e->getMessage();
+            }
+
+            return $winnerVsLooser;
         }
 
-        return new ChildrenOfIluvatar();
+        return null;
     }
 
     private function defeatedWarriors(ChildrenOfIluvatar $childrenOfIluvatar):void
@@ -128,14 +166,5 @@ class BattleManager
     {
         return $this->wonArmyDisplay;
     }
-
-    /**
-     * @return string|null
-     */
-    public function getLosingArmyDisplay(): ?string
-    {
-        return $this->losingArmyDisplay;
-    }
-
 
 }
